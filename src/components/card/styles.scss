@@ -1,0 +1,26 @@
+.card-product {
+    width: 250px;
+    box-shadow: 5px 5px 25px rgb(184, 183, 183);
+
+    .image {
+        width: 200px !important;
+        height: 160px !important;
+        margin-left: 25px;
+    }
+
+    .info-product {
+        margin-left: 15px;
+
+        h5 {
+            margin-bottom: 22px;
+        }
+        
+        p {
+            margin-top: -12px;
+        }
+    }
+
+    .btn-view {
+        text-align: center;
+    }
+}
