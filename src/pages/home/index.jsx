@@ -12,7 +12,6 @@ export default function Home() {
   const [price, setPrice] = useState()
 
   const handleChange = (val) => {
-    console.log("val: ", val);
     setSearch(val)
     setList(
       data.filter((item) =>
@@ -28,6 +27,26 @@ export default function Home() {
       )
     );
   };
+
+  const handleSelectChange = (e) => {
+    const val = e.target.value
+    setBrand(val)
+    setList(
+      data.filter((item) =>
+        item?.brand?.toLowerCase()?.includes(val.toLowerCase())
+      )
+    );
+  }
+
+  const sortPrice = (e) => {
+    const val = e.target.value
+    setPrice(val)
+    if(val === "1") {
+      setList(data.sort((a, b) => a.price - b.price))
+    } else {
+      setList(data.sort((a, b) => b.price - a.price))
+    }
+  }
 
   return (
     <div className="homeContainer">
@@ -48,8 +67,8 @@ export default function Home() {
             <p>Hãng</p>
             <select
               className="selectBox"
-              // value={brand}
-              // onChange={handleSelectChange}
+              value={brand}
+              onChange={handleSelectChange}
             >
               <option selected value=""></option>
               <option value="Asus">ASUS</option>
@@ -61,8 +80,8 @@ export default function Home() {
           <div className="selectForm d-flex">
             <p>Giá</p>
             <select className="selectBox" 
-              // value={price} 
-              // onChange={sortPrice}
+              value={price} 
+              onChange={sortPrice}
             >
               <option selected value=""></option>
               <option value="1">Từ thấp đến cao</option>
