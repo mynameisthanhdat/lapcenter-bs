@@ -3,38 +3,34 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 import Navbar from "../../components/navbar";
 import "./styles.scss";
 import { useNavigate } from "react-router-dom";
-const fakeAccount = {username: "admin", password: "admin"}
 
-export default function Login() {
+export default function Register() {
   let navigate = useNavigate();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
 
   const handleChange = (val, field) => {
     if (field === "username") {
       setUsername(val);
-      console.log("USERNAME: ", val);
-    } else {
+    }if (field === "password") {
       setPassword(val);
+    } else {
+      setConfirmPassword(val);
       console.log("PASSWORD: ", val);
     }
   };
 
-  const handleLogin = () => {
-    if(username === fakeAccount.username && password === fakeAccount.password) {
-      console.log("DANG NHAP THANH CONG");
-      navigate('/')
-    } else {
-      console.log("DANG NHAP KHONG THANH CONG");
-      alert("Tên tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại!!!")
-    }
+  const handleRegister = () => {
+    alert("Tạo tài khoản thành công")
+    navigate('/login')
   }
 
   return (
-    <div className="loginContainer">
+    <div className="registerContainer">
       <Navbar />
-      <div className="formLogin">
-        <h2>Đăng nhập</h2>
+      <div className="formRegister">
+        <h2>Đăng ký </h2>
         <Form>
           <Form.Group
             as={Row}
@@ -70,10 +66,26 @@ export default function Login() {
               />
             </Col>
           </Form.Group>
+          <Form.Group
+            as={Row}
+            className="mb-3 d-flex justify-content-between"
+            controlId="formPlaintextPassword"
+          >
+            <Form.Label column sm="2">
+              Confirm Password
+            </Form.Label>
+            <Col sm="9">
+              <Form.Control
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => handleChange(e.target.value, "confirm_password")}
+              />
+            </Col>
+          </Form.Group>
           <div className="d-flex justify-content-center mt-4">
-            <Button variant="success" onClick={handleLogin}>Đăng nhập</Button>
+            <Button variant="success" onClick={handleRegister}>Đăng ký</Button>
           </div>
-          <p className="createNewAcc" onClick={() => navigate("/register")}>Tạo tài khoản mới</p>
         </Form>
       </div>
     </div>
