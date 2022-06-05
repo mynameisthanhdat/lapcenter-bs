@@ -1,5 +1,5 @@
-.loginContainer {
-  .formLogin {
+.registerContainer {
+  .formRegister {
     width: 500px;
     height: auto;
     padding: 50px;
@@ -15,17 +15,6 @@
     h2 {
       text-align: center;
       margin-bottom: 30px;
-    }
-
-    .createNewAcc {
-      color: rgb(3, 51, 183);
-      text-align: right;
-      margin-top: 20px;
-      cursor: pointer;
-
-      &:hover {
-        color: rgb(12, 34, 95);
-      }
     }
   }
 }
