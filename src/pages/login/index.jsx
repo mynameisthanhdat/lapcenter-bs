@@ -3,6 +3,8 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 import Navbar from "../../components/navbar";
 import "./styles.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const fakeAccount = {username: "admin", password: "admin"}
 
 export default function Login() {
@@ -21,13 +23,20 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-    if(username === fakeAccount.username && password === fakeAccount.password) {
-      console.log("DANG NHAP THANH CONG");
-      navigate('/')
-    } else {
-      console.log("DANG NHAP KHONG THANH CONG");
+    const url = 'https://lap-center.herokuapp.com/api/login'
+    axios.post(url, {
+      username: username,
+      password: password
+    })
+    .then(function (response) {
+      console.log("SUCCESS: ", response.data);
+      navigate('/');
+    })
+    .catch(function (error) {
+      console.log("ERROR: ",error);
       alert("Tên tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại!!!")
-    }
+    });
+  
   }
 
   return (

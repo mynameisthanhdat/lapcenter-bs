@@ -7,15 +7,15 @@ import "./styles.scss";
 import axios from "axios";
 
 export default function Home() {
-  const [list, setList] = useState(data);
+  const [list, setList] = useState([]);
   const [search, setSearch] = useState("");
   const [brand, setBrand] = useState("");
-  const [price, setPrice] = useState();
+  const [sort, setSort] = useState();
 
   useEffect(() => {
     console.log("ham nay chay dau tien");
     // fetchAPI();
-    // fetchAxios();
+    fetchAxios();
   }, []);
 
   const fetchAPI = () => {
@@ -45,40 +45,45 @@ export default function Home() {
 
   const handleChange = (val) => {
     setSearch(val);
-    setList(
-      data.filter((item) =>
-        item?.name?.toLowerCase()?.includes(val.toLowerCase())
-      )
-    );
+    console.log("SEARCH: ", search);
+    console.log("VAL: ", val);
   };
 
   const onSubmitSearch = () => {
-    setList(
-      data.filter((item) =>
-        item?.name?.toLowerCase()?.includes(search.toLowerCase())
-      )
-    );
+    console.log("val: ", search);
+    handleCallApi(search, brand, sort)
   };
 
   const handleSelectChange = (e) => {
     const val = e.target.value;
     setBrand(val);
-    setList(
-      data.filter((item) =>
-        item?.brand?.toLowerCase()?.includes(val.toLowerCase())
-      )
-    );
+    handleCallApi(search, val, sort)
   };
 
-  const sortPrice = (e) => {
+  const handleSort = (e) => {
     const val = e.target.value;
-    setPrice(val);
-    if (val === "1") {
-      setList(data.sort((a, b) => a.price - b.price));
-    } else {
-      setList(data.sort((a, b) => b.price - a.price));
-    }
+    setSort(val);
+    handleCallApi(search, brand, val)
   };
+
+  const handleCallApi = (productName, productBrand, priceSort) => {
+    axios
+      .get("https://lap-center.herokuapp.com/api/product", {
+        params: {
+          productName: productName,
+          productBrand: productBrand,
+          orderByColumn: 'price',
+          orderByDirection: priceSort
+        }
+      })
+      .then(function (response) {
+        console.log('SUCCESS: ', response.data);
+        setList(response.data.products)
+      })
+      .catch(function (error) {
+        console.log('ERROR: ',error);
+      })
+  }
 
   return (
     <div className="homeContainer">
@@ -115,15 +120,15 @@ export default function Home() {
           </div>
           <div className="selectForm d-flex">
             <p>Giá</p>
-            <select className="selectBox" value={price} onChange={sortPrice}>
+            <select className="selectBox" value={sort} onChange={handleSort}>
               <option selected value=""></option>
-              <option value="1">Từ thấp đến cao</option>
-              <option value="2">Từ cao đến thấp</option>
+              <option value="asc">Từ thấp đến cao</option>
+              <option value="desc">Từ cao đến thấp</option>
             </select>
           </div>
         </div>
         <div className="d-flex flex-wrap justify-content-around list_products">
-          {list.map((item) => (
+          {list.length > 0 && list.map((item) => (
             <Card product={item} key={item.id} />
           ))}
         </div>
