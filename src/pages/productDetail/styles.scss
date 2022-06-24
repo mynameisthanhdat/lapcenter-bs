@@ -1,0 +1,40 @@
+.productDetailContainer {
+  width: 80%;
+  margin: 0 auto;
+
+  .title {
+    margin-top: 30px;
+  }
+
+  .info {
+    .productImg {
+      .imgSmall {
+        width: 60px;
+        height: 45px;
+        border: 1px solid rgb(145, 145, 145);
+      }
+    }
+    .price {
+      .amount {
+        color: crimson;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .gift {
+        background-color: rgb(35, 172, 35);
+        color: aliceblue;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 15px 5px;
+      }
+
+      .giftInfo {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 15px 5px;
+        border: 1px dotted black;
+      }
+    }
+  }
+}
