@@ -31,16 +31,16 @@ export default function Home() {
 
   const fetchAxios = () => {
     axios
-      .get("https://lap-center.herokuapp.com/api/product")
+      .get("https://lap-center-v1.herokuapp.com/api/product")
       .then(function (response) {
         // handle success
-        console.log('SUCCESS: ', response.data);
-        setList(response.data.products)
+        console.log("SUCCESS: ", response.data);
+        setList(response.data.products);
       })
       .catch(function (error) {
         // handle error
-        console.log('ERROR: ',error);
-      })
+        console.log("ERROR: ", error);
+      });
   };
 
   const handleChange = (val) => {
@@ -51,39 +51,39 @@ export default function Home() {
 
   const onSubmitSearch = () => {
     console.log("val: ", search);
-    handleCallApi(search, brand, sort)
+    handleCallApi(search, brand, sort);
   };
 
   const handleSelectChange = (e) => {
     const val = e.target.value;
     setBrand(val);
-    handleCallApi(search, val, sort)
+    handleCallApi(search, val, sort);
   };
 
   const handleSort = (e) => {
     const val = e.target.value;
     setSort(val);
-    handleCallApi(search, brand, val)
+    handleCallApi(search, brand, val);
   };
 
   const handleCallApi = (productName, productBrand, priceSort) => {
     axios
-      .get("https://lap-center.herokuapp.com/api/product", {
+      .get("https://lap-center-v1.herokuapp.com/api/product", {
         params: {
           productName: productName,
           productBrand: productBrand,
-          orderByColumn: 'price',
-          orderByDirection: priceSort
-        }
+          orderByColumn: "price",
+          orderByDirection: priceSort,
+        },
       })
       .then(function (response) {
-        console.log('SUCCESS: ', response.data);
-        setList(response.data.products)
+        console.log("SUCCESS: ", response.data);
+        setList(response.data.products);
       })
       .catch(function (error) {
-        console.log('ERROR: ',error);
-      })
-  }
+        console.log("ERROR: ", error);
+      });
+  };
 
   return (
     <div className="homeContainer">
@@ -128,9 +128,8 @@ export default function Home() {
           </div>
         </div>
         <div className="d-flex flex-wrap justify-content-around list_products">
-          {list.length > 0 && list.map((item) => (
-            <Card product={item} key={item.id} />
-          ))}
+          {list.length > 0 &&
+            list.map((item) => <Card product={item} key={item.id} />)}
         </div>
       </div>
     </div>
