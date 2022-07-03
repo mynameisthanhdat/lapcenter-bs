@@ -13,14 +13,14 @@ const SameCard = ({ product }) => {
     <div
       className="cardItem-container"
       onClick={() => moveToDetail()}
-      title={product.name}
+      title={product?.name}
     >
       <img
         className="image"
-        src={product.images[0]}
+        src={product?.images[0]}
       />
-      <h4 className="name">{product.name}</h4>
-      <p className="price-text">{product.price} VND</p>
+      <h4 className="name">{product?.name}</h4>
+      <p className="price-text">{product?.price} VND</p>
     </div>
   );
 };
