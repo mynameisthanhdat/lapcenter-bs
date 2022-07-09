@@ -2,14 +2,39 @@
   width: 100%;
 
   .content {
-    display: flex;
+    justify-content: space-between;
+    padding-top: 65px;
   }
 
-  .menu_left {
-    width: 20%;
+  .menu_top {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+
+      .btnSearch {
+        width: 120px;
+      }
+
+    .selectForm {
+      .selectBox {
+        width: 200px;
+        margin-left: 15px;
+        font-weight: 600;
+        max-height: 45px;
+      }
+
+      .txtFilter {
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
   }
 
   .list_products {
     width: 80%;
+    margin: 0 auto;
   }
 }
