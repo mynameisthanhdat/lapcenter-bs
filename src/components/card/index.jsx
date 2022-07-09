@@ -8,12 +8,12 @@ export default function Card({product}) {
   // console.log("URL: ", product);
   // const url = product.image
   return (
-    <div className="card-product pb-3 pt-2 my-4 mx-3">
+    <div className="card-product pb-3 pt-2 my-4 mx-3" title={product.name}>
       <img className="image" src={product.images[0]} alt="" />
       <div className="info-product">
-        <h5>{product.name}</h5>
+        <h5 className="nameCard">{product.name}</h5>
         <p>Hang: {product.brand}</p>
-        <p>Chip: {product.cpu}</p>
+        <p className="chipCard">Chip: {product.cpu}</p>
         <p>Gia: {product.price} VND</p>
       </div>
       <div className="btn-view">
