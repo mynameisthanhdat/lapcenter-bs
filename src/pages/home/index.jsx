@@ -5,6 +5,7 @@ import { data } from "../../data";
 import { Form, Button, Spinner } from "react-bootstrap";
 import "./styles.scss";
 import axios from "axios";
+import ReactPaginate from 'react-paginate';
 
 export default function Home() {
   const [list, setList] = useState([]);
@@ -142,6 +143,21 @@ export default function Home() {
               <Spinner animation="border" variant="primary" />
             </div>
           }
+        </div>
+        <div className="pagination">
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={2}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={4}
+            onPageChange={(e) => console.log("EEEE: ", e.selected + 1)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
     </div>

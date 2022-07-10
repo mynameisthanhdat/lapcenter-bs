@@ -6,7 +6,7 @@ const SameCard = ({ product }) => {
   const navigate = useNavigate();
 
   const moveToDetail = () => {
-    navigate(`/product/${product._id}`);
+    navigate(`/product/${product._id}`, {state: { id: product._id, brand: product.brand }})
   };
 
   return (
