@@ -13,6 +13,11 @@ export default function Home() {
   const [brand, setBrand] = useState("");
   const [sort, setSort] = useState();
   const [loading, setLoading] = useState(true);
+  const [totalPage, setTotalPage] = useState(0);
+  const [page, setPage] = useState(1);
+  // const [state, setState] = useState(giatribandau)
+  // state = giatribandau
+  // setState => cap nhat state
 
   useEffect(() => {
     console.log("ham nay chay dau tien");
@@ -34,12 +39,13 @@ export default function Home() {
   const fetchAxios = () => {
     setLoading(true)
     axios
-      .get("https://lap-center-v1.herokuapp.com/api/product")
+      .get("https://lap-center-v1.herokuapp.com/api/product?pageSize=6&pageNumber=1")
       .then(function (response) {
         // handle success
         console.log("SUCCESS: ", response.data);
         setLoading(false)
         setList(response.data.products);
+        setTotalPage(response.data.totalPage)
       })
       .catch(function (error) {
         // handle error
@@ -81,6 +87,8 @@ export default function Home() {
           productBrand: productBrand,
           orderByColumn: "price",
           orderByDirection: priceSort,
+          pageSize: 6,
+          pageNumber: page
         },
       })
       .then(function (response) {
@@ -94,6 +102,26 @@ export default function Home() {
         console.log("ERROR: ", error);
       });
   };
+
+  const handleChangePage = (pageNumber) => {
+    console.log("PAGE: ", pageNumber);
+    setPage(pageNumber)
+    setLoading(true)
+    axios
+      .get(`https://lap-center-v1.herokuapp.com/api/product?pageSize=6&pageNumber=${pageNumber}`)
+      .then(function (response) {
+        // handle success
+        setLoading(false)
+        setList(response.data.products);
+        setTotalPage(response.data.totalPage)
+      })
+      .catch(function (error) {
+        // handle error
+        setLoading(false)
+        alert("Something went wrong!!!")
+        console.log("ERROR: ", error);
+      });
+  }
 
   return (
     <div className="homeContainer">
@@ -150,10 +178,10 @@ export default function Home() {
             nextLabel={">"}
             breakLabel={"..."}
             breakClassName={"break-me"}
-            pageCount={2}
+            pageCount={totalPage}
             marginPagesDisplayed={2}
             pageRangeDisplayed={4}
-            onPageChange={(e) => console.log("EEEE: ", e.selected + 1)}
+            onPageChange={(e) => handleChangePage(e.selected + 1)}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
