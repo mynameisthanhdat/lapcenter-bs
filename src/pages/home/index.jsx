@@ -15,6 +15,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [totalPage, setTotalPage] = useState(0);
   const [page, setPage] = useState(1);
+  const customerName = localStorage.getItem('customerName')
+
   // const [state, setState] = useState(giatribandau)
   // state = giatribandau
   // setState => cap nhat state
@@ -39,7 +41,7 @@ export default function Home() {
   const fetchAxios = () => {
     setLoading(true)
     axios
-      .get("https://lap-center-v1.herokuapp.com/api/product?pageSize=6&pageNumber=1")
+      .get("https://lap-center-v1.herokuapp.com/api/product?pageSize=12&pageNumber=1")
       .then(function (response) {
         // handle success
         console.log("SUCCESS: ", response.data);
@@ -87,7 +89,7 @@ export default function Home() {
           productBrand: productBrand,
           orderByColumn: "price",
           orderByDirection: priceSort,
-          pageSize: 6,
+          pageSize: 12,
           pageNumber: page
         },
       })
@@ -108,7 +110,7 @@ export default function Home() {
     setPage(pageNumber)
     setLoading(true)
     axios
-      .get(`https://lap-center-v1.herokuapp.com/api/product?pageSize=6&pageNumber=${pageNumber}`)
+      .get(`https://lap-center-v1.herokuapp.com/api/product?pageSize=12&pageNumber=${pageNumber}`)
       .then(function (response) {
         // handle success
         setLoading(false)
@@ -162,6 +164,14 @@ export default function Home() {
               <option value="asc">Từ thấp đến cao</option>
               <option value="desc">Từ cao đến thấp</option>
             </select>
+          </div>
+          <div>
+            {
+              customerName &&
+              <>
+                <span className="text-success">Chào mừng, </span> <span className="h5">{customerName}</span>
+              </> 
+            }
           </div>
         </div>
         <div className="d-flex flex-wrap justify-content-around list_products">

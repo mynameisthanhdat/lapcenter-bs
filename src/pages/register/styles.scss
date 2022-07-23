@@ -1,16 +1,46 @@
 .registerContainer {
+  height: 100vh;
+  // height = 100% => là 100% của tổng chiều dài các phần tử con cộng lại
+  // height = 100vh => là 100% của chiều dài trình duyệt
+  // 100vh = 900px nhưng tất cả chiều dài của phần tử con lớn hơn 900px => phần tử cha này sẽ bị vỡ
+  width: 100vw;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .iconHome {
+    top: 10px;
+    left: 10px;
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
   .formRegister {
-    width: 800px;
+    width: 700px;
     height: auto;
     padding: 50px;
     margin: 0 auto;
-    background-color: rgb(53, 192, 192);
-    margin-top: 100px;
-    -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000,
-      9px 30px 26px 18px rgba(0, 0, 0, 0);
-    box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000,
-      9px 30px 26px 18px rgba(0, 0, 0, 0);
-    border-radius: 4px;
+    background: rgb(98, 139, 217);
+    background: radial-gradient(
+      circle,
+      rgba(98, 139, 217, 1) 7%,
+      rgba(48, 102, 179, 1) 83%
+    );
+    box-shadow: 2px 2px 1.6px rgba(0, 0, 0, 0.036),
+      4.5px 4.5px 3.6px rgba(0, 0, 0, 0.047),
+      7.9px 7.9px 6.3px rgba(0, 0, 0, 0.053),
+      12.5px 12.5px 10px rgba(0, 0, 0, 0.064),
+      19.3px 19.3px 15.5px rgba(0, 0, 0, 0.083),
+      30.1px 30.1px 24.1px rgba(0, 0, 0, 0.114),
+      50px 50px 40px rgba(0, 0, 0, 0.162), 100px 100px 80px rgba(0, 0, 0, 0.23);
+    border-radius: 20px;
 
     h2 {
       text-align: center;

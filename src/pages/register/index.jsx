@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
-import Navbar from "../../components/navbar";
 import "./styles.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import iconHome from '../../assets/imgs/iconHome.png'
 
 export default function Register() {
   let navigate = useNavigate();
@@ -26,11 +26,6 @@ export default function Register() {
       setPhone(val);
     }
   };
-
-  // const handleRegister = () => {
-  //   alert("Tạo tài khoản thành công")
-  //   navigate('/login')
-  // }
 
   const handleRegister = () => {
     const url = "https://lap-center.herokuapp.com/api/register";
@@ -55,7 +50,7 @@ export default function Register() {
 
   return (
     <div className="registerContainer">
-      <Navbar />
+      <img src={iconHome} alt="" width={45} height={45} className='iconHome' title='Trang chủ' onClick={() => navigate('/')}/>
       <div className="formRegister">
         <h2>Đăng ký </h2>
         <Form>
@@ -64,13 +59,13 @@ export default function Register() {
             className="mb-3 d-flex justify-content-between gy-5"
             controlId="formPlaintextEmail"
           >
-            <Form.Label column sm="3">
-              Customer's name
-            </Form.Label>
-            <Col sm="9">
+            <Col sm="12">
+              <Form.Label>
+                Tên khách hàng
+              </Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Customer's name"
+                placeholder="Tên khách hàng"
                 value={name}
                 onChange={(e) => handleChange(e.target.value, "name")}
               />
@@ -81,10 +76,10 @@ export default function Register() {
             className="mb-3 d-flex justify-content-between"
             controlId="formPlaintextEmail"
           >
-            <Form.Label column sm="3">
-              Email
-            </Form.Label>
-            <Col sm="9">
+            <Col sm="12">
+              <Form.Label>
+                Email
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Email"
@@ -98,13 +93,13 @@ export default function Register() {
             className="mb-3 d-flex justify-content-between"
             controlId="formPlaintextPassword"
           >
-            <Form.Label column sm="3">
-              Phone
-            </Form.Label>
-            <Col sm="9">
+            <Col sm="12">
+              <Form.Label>
+                Số điện thoại
+              </Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Phone"
+                placeholder="Số điện thoại"
                 value={phone}
                 onChange={(e) => handleChange(e.target.value, "phone")}
               />
@@ -115,13 +110,13 @@ export default function Register() {
             className="mb-3 d-flex justify-content-between"
             controlId="formPlaintextPassword"
           >
-            <Form.Label column sm="3">
-              Password
-            </Form.Label>
-            <Col sm="9">
+            <Col sm="12">
+              <Form.Label>
+                Mật khẩu
+              </Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 value={password}
                 onChange={(e) => handleChange(e.target.value, "password")}
               />
