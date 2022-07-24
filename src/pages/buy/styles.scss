@@ -1,0 +1,23 @@
+.buyContainer {
+  width: 100%;
+
+  .content {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 85px;
+  }
+
+  .fa-circle-minus, .fa-circle-plus {
+    color: rgb(8, 30, 142);
+  }
+
+  .inp {
+    width: 50px;
+    height: 38px;
+    margin-top: 5px;
+  }
+
+  .mx-2 {
+    margin-top: -5px;
+  }
+}
