@@ -1,5 +1,6 @@
 .buyContainer {
   width: 100%;
+  padding-bottom: 50px;
 
   .content {
     width: 60%;
@@ -19,5 +20,17 @@
 
   .mx-2 {
     margin-top: -5px;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
   }
 }
