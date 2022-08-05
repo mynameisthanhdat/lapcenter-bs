@@ -21,7 +21,7 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-    const url = 'https://lap-center-v1.herokuapp.com/api/login'
+    const url = 'https://lap-center.herokuapp.com/api/login'
     axios.post(url, {
       username: username,
       password: password
