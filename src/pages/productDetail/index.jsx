@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import "./styles.scss";
 import { Button, Spinner } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -30,7 +30,8 @@ const responsive = {
 
 export default function ProductDetail() {
   const { state } = useLocation();
-  const location = useLocation()
+  const location = useLocation();
+  const navigate = useNavigate();
   const [product, setProduct] = useState();
   const [productsBrand, setProductsBrand] = useState();
   const [image, setImage] = useState("");
@@ -40,12 +41,12 @@ export default function ProductDetail() {
     setLoading(true);
     axios
       .get(
-        `https://lap-center-v1.herokuapp.com/api/product/getProductById/${state.id}`
+        `https://lap-center.herokuapp.com/api/product/getProductById/${state.id}`
       )
       .then(function (response) {
         // handle success
         const data = response.data.response;
-        // console.log("SUCCESS: ", data);
+        console.log("SUCCESS: ", data);
         setProduct(data);
         setImage(data.images[0]);
         setLoading(false);
@@ -60,7 +61,7 @@ export default function ProductDetail() {
   const getProductsBrand = () => {
     setLoading(true);
     axios
-      .get(`https://lap-center-v1.herokuapp.com/api/product`, {
+      .get(`https://lap-center.herokuapp.com/api/product`, {
         params: {
           productBrand: state.brand,
         },
@@ -118,7 +119,9 @@ export default function ProductDetail() {
                 <div className="gift">Khuyến mãi - Quà tặng</div>
                 <div className="giftInfo">Thông tin quà tặng</div>
                 <div className="text-center">
-                  <Button className="my-4 bg-danger">Mua ngay</Button>
+                  <Button className="my-4 bg-danger" onClick={() => {
+                    navigate(`/buy/${product._id}`, {state: { id: product._id }})}
+                  }>Mua ngay</Button>
                   <br />
                   <span>
                     GỌI NGAY <span className="text-danger h4">0969 44 2510</span> ĐỂ

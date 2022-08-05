@@ -41,7 +41,7 @@ export default function Home() {
   const fetchAxios = () => {
     setLoading(true)
     axios
-      .get("https://lap-center-v1.herokuapp.com/api/product?pageSize=12&pageNumber=1")
+      .get("https://lap-center.herokuapp.com/api/product?pageSize=12&pageNumber=1")
       .then(function (response) {
         // handle success
         console.log("SUCCESS: ", response.data);
@@ -83,7 +83,7 @@ export default function Home() {
   const handleCallApi = (productName, productBrand, priceSort) => {
     setLoading(true)
     axios
-      .get("https://lap-center-v1.herokuapp.com/api/product", {
+      .get("https://lap-center.herokuapp.com/api/product", {
         params: {
           productName: productName,
           productBrand: productBrand,
@@ -110,7 +110,7 @@ export default function Home() {
     setPage(pageNumber)
     setLoading(true)
     axios
-      .get(`https://lap-center-v1.herokuapp.com/api/product?pageSize=12&pageNumber=${pageNumber}`)
+      .get(`https://lap-center.herokuapp.com/api/product?pageSize=12&pageNumber=${pageNumber}`)
       .then(function (response) {
         // handle success
         setLoading(false)

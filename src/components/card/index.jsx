@@ -17,7 +17,7 @@ export default function Card({product}) {
         <p>Gia: {product.price} VND</p>
       </div>
       <div className="btn-view">
-        <Button variant="primary" onClick={() => {navigate(`/product/${product._id}`, {state: { id: product._id, brand: product.brand }})}}>Xem san pham</Button>
+        <Button variant="primary" onClick={() => {navigate(`/product/${product._id}`, {state: { id: product._id, brand: product.brand }})}}>Xem sản phẩm</Button>
       </div>
     </div>
   );

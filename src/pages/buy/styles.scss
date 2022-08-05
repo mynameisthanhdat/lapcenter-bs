@@ -6,6 +6,18 @@
     width: 60%;
     margin: 0 auto;
     padding-top: 85px;
+
+    .order {
+      box-shadow:
+        0.2px 0.3px 114.1px -24px rgba(0, 0, 0, 0.03),
+        5.4px 10.4px 140.4px -24px rgba(0, 0, 0, 0.052),
+        19.8px 37.7px 156.6px -24px rgba(0, 0, 0, 0.066),
+        53.9px 102.4px 180.9px -24px rgba(0, 0, 0, 0.074),
+        162px 308px 278px -24px rgba(0, 0, 0, 0.08)
+      ;
+      padding: 40px;
+      border-radius: 20px;
+    }
   }
 
   .fa-circle-minus, .fa-circle-plus {
@@ -32,5 +44,9 @@
   /* Firefox */
   input[type=number] {
     -moz-appearance: textfield;
+  }
+
+  .loading {
+    padding-top: 300px;
   }
 }
