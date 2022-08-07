@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar";
 import { Form, Col, Row, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
 const Buy = () => {
   const { state } = useLocation();
@@ -13,12 +13,13 @@ const Buy = () => {
   const [phone, setPhone] = useState();
   const [address, setAddress] = useState();
   const [quantity, setQuantity] = useState(1);
-
   const [totalPrice, setTotalPrice] = useState(0);
   const [product, setProduct] = useState();
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [modalConfirm, setModalConfirm] = useState(false);
+  const [message, setMessage] = useState();
 
   const handleChange = (val, field) => {
     if (field === "name") {
@@ -83,6 +84,35 @@ const Buy = () => {
     }
   };
 
+  const handleOrderProduct = () => {
+    setLoading(true)
+    axios
+      .post("https://lap-center.herokuapp.com/api/order/addOrder", {
+        // body request
+        customerName: name,
+        phone: phone,
+        email: email,
+        address: address,
+        productName: product?.name,
+        productBrand: product?.brand,
+        quantity: quantity,
+        orderStatus: 1,
+      })
+      .then((res) => {
+        // alert("Tạo đơn hàng thành công!");
+        setModalConfirm(true)
+        setMessage("Tạo đơn hàng thành công!")
+        setLoading(false)
+      })
+      .catch((err) => {
+        // alert("Tạo đơn hàng thất bại!");
+        setModalConfirm(true)
+        setMessage("Tạo đơn hàng thất bại!")
+        setLoading(false)
+      });
+    setModalShow(false);
+  };
+
   useEffect(() => {
     getProductId();
   }, []);
@@ -94,7 +124,7 @@ const Buy = () => {
   return (
     <div className="buyContainer">
       <Navbar />
-      {!loading ?
+      {!loading ? (
         <div className="content">
           <b className="text-danger">Để đặt hàng, </b>{" "}
           <span>
@@ -200,25 +230,34 @@ const Buy = () => {
               </Col>
             </Form.Group>
             <div className="d-flex justify-content-center mt-4">
-              <Button variant="success" disabled={!checkInfo} onClick={() => setModalShow(true)}>
+              <Button
+                variant="success"
+                disabled={!checkInfo}
+                onClick={() => setModalShow(true)}
+              >
                 Đặt hàng
               </Button>
             </div>
           </Form>
-        </div> :
+        </div>
+      ) : (
         <div className="loading">
           <Spinner animation="border" variant="primary" />
         </div>
-      }
+      )}
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        backdrop="static"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            className="text-danger"
+          >
             Xác nhận thông tin
           </Modal.Title>
         </Modal.Header>
@@ -227,32 +266,65 @@ const Buy = () => {
             <div>
               <img src={image} alt="" height={160} width={200} />
             </div>
-            <div>
+            <div className="mx-4">
               <div>
                 <h5>Thông tin sản phẩm</h5>
-                <span>Tên sản phẩm: </span> <span className="font-weight-bold">{product?.name}</span>
+                <span className="my-2">Tên sản phẩm: </span>{" "}
+                <span className="fw-bold">{product?.name}</span>
                 <br />
-                <span>Hãng: </span> <span className="font-weight-bold">{product?.brand}</span>
+                <span className="my-2">Hãng: </span>{" "}
+                <span className="fw-bold">{product?.brand}</span>
                 <br />
-                <span>Số lượng: </span> <span className="font-weight-bold">{quantity}</span>
+                <span className="my-2">Số lượng: </span>{" "}
+                <span className="fw-bold">{quantity}</span>
                 <br />
-                <span>Tổng thanh toán: </span> <span className="font-weight-bold">{totalPrice}</span>
+                <span className="my-2">Tổng thanh toán: </span>{" "}
+                <span className="fw-bold">{totalPrice} VNĐ</span>
               </div>
               <div>
-                <h5>Thông tin khách hàng</h5>
-                <span>Tên khách hàng: </span> <span className="font-weight-bold">{name}</span>
+                <h5 className="mt-4">Thông tin khách hàng</h5>
+                <span className="my-2">Tên khách hàng: </span>{" "}
+                <span className="fw-bold">{name}</span>
                 <br />
-                <span>Số điện thoại: </span> <span className="font-weight-bold">{phone}</span>
+                <span className="my-2">Số điện thoại: </span>{" "}
+                <span className="fw-bold">{phone}</span>
                 <br />
-                <span>Email: </span> <span className="font-weight-bold">{email}</span>
+                <span className="my-2">Email: </span>{" "}
+                <span className="fw-bold">{email}</span>
                 <br />
-                <span>Địa chỉ nhận hàng: </span> <span className="font-weight-bold">{address}</span>
+                <span className="my-2">Địa chỉ nhận hàng: </span>{" "}
+                <span className="fw-bold">{address}</span>
               </div>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button onClick={handleOrderProduct}>Xác nhận</Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Confirm modal */}
+      <Modal
+        show={modalConfirm}
+        onHide={() => setModalConfirm(false)}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Thông báo
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{message}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => setModalConfirm(false)}
+            className="btn-success"
+          >
+            Đóng
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
