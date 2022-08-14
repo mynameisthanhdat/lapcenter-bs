@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import "./styles.scss";
-import { Button, Spinner } from "react-bootstrap";
+import { Button, Spinner, Modal } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
@@ -36,6 +36,10 @@ export default function ProductDetail() {
   const [productsBrand, setProductsBrand] = useState();
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState();
+  const [modalConfirm, setModalConfirm] = useState(false);
+  const isLogin = localStorage.getItem('customerName')
+  const userId = localStorage.getItem('userId')
 
   const getProductId = () => {
     setLoading(true);
@@ -75,6 +79,35 @@ export default function ProductDetail() {
         setLoading(false);
         console.log("ERROR 1: ", error);
       });
+  };
+
+  const handleAddToCart = () => {
+    setLoading(true)
+    axios
+      .post("https://lap-center.herokuapp.com/api/cart/addProductToCart", {
+        // body request
+        userId: userId,
+        // productId: state.id,
+        productId: product._id,
+        productName: product.name,
+        productBrand: product.brand,
+        image: image,
+        // image: product.images[0],
+        price: product.price
+      })
+      .then((res) => {
+        setModalConfirm(true)
+        console.log("SUCCESS");
+        setMessage("Thêm sản phẩm vào giỏ hàng thành công!")
+        setLoading(false)
+      })
+      .catch((err) => {
+        setModalConfirm(true)
+        console.log("ERROR");
+        setMessage("Thêm sản phẩm vào giỏ hàng thất bại!")
+        setLoading(false)
+      });
+    // setModalShow(false);
   };
 
   useEffect(() => {
@@ -122,6 +155,10 @@ export default function ProductDetail() {
                   <Button className="my-4 bg-danger" onClick={() => {
                     navigate(`/buy/${product._id}`, {state: { id: product._id }})}
                   }>Mua ngay</Button>
+                  <br />
+                  {isLogin &&
+                    <Button className="my-4 bg-success" onClick={handleAddToCart}>Thêm vào giỏ hàng</Button>
+                  }
                   <br />
                   <span>
                     GỌI NGAY <span className="text-danger h4">0969 44 2510</span> ĐỂ
@@ -195,6 +232,31 @@ export default function ProductDetail() {
         </div>
       }
       <Footer />
+      {/* Confirm modal */}
+      <Modal
+        show={modalConfirm}
+        onHide={() => setModalConfirm(false)}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Thông báo
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{message}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => setModalConfirm(false)}
+            className="btn-success"
+          >
+            Đóng
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
