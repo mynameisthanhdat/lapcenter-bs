@@ -1,12 +1,14 @@
 import React from "react";
 import "./styles.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const accessToken = localStorage.getItem('accessToken')
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     localStorage.clear()
+    navigate('/')
   }
 
   return (
@@ -20,15 +22,15 @@ export default function Navbar() {
             <Link to="/">TRANG CHỦ</Link>
           </li>
           <li>
-            <Link to="about">GIỚI THIỆU</Link>
+            <Link to="/about">GIỚI THIỆU</Link>
           </li>
           <li>LIÊN HỆ</li>
           {accessToken ?
-            <li onClick={handleLogout}>
-              <Link to='login'>ĐĂNG XUẤT</Link>
+            <li onClick={handleLogout} className="cursor-pointer">
+              <p>ĐĂNG XUẤT</p>
             </li> :
             <li>
-              <Link to="login">ĐĂNG NHẬP</Link>
+              <Link to="/login">ĐĂNG NHẬP</Link>
             </li>
           }
         </ul>
