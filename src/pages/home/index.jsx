@@ -6,6 +6,7 @@ import { Form, Button, Spinner } from "react-bootstrap";
 import "./styles.scss";
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
+import MyCartIcon from "../../components/myCartAndHistory";
 
 export default function Home() {
   const [list, setList] = useState([]);
@@ -128,6 +129,10 @@ export default function Home() {
   return (
     <div className="homeContainer">
       <Navbar />
+      {/* && la chỉ thực hiện khi điều kiện trả về đúng, còn sai thì thôi!!! */}
+      {customerName &&
+        <MyCartIcon />
+      }
       <div className="content">
         <div className="menu_top">
           <div className="d-flex">
