@@ -13,6 +13,7 @@ import Register from './pages/register';
 import ProductDetail from './pages/productDetail';
 import Buy from './pages/buy';
 import MyCarts from './pages/carts';
+import MyHistory from './pages/history';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -25,6 +26,7 @@ root.render(
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/buy/:productId" element={<Buy />} />
         <Route path="/myCarts" element={<MyCarts />} />
+        <Route path="/myHistory" element={<MyHistory />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
