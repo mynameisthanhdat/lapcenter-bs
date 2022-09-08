@@ -5,6 +5,7 @@ import iconCart from '../../assets/imgs/iconCart.png'
 import iconDelete from '../../assets/imgs/delete.jpg'
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom'
 
 const fakeData = [
   {
@@ -38,6 +39,7 @@ const MyCarts = () => {
   const [loading, setLoading] = useState(false);
   const user = localStorage.getItem("customerName")
   const userId = localStorage.getItem("userId")
+  const navigate = useNavigate()
 
   const fetchAPI = () => {
     setLoading(true);
@@ -47,7 +49,7 @@ const MyCarts = () => {
         // handle success
         const data = response.data.products;
         console.log("Carts: ", data);
-        setData(data);
+        setData(data.reverse());
         setLoading(false);
       })
       .catch(function (error) {
@@ -109,7 +111,7 @@ const MyCarts = () => {
                   <div className="bg-icon" onClick={() => handleDelete(item._id)}>
                     <img className="icon" src={iconDelete} alt="" />
                   </div>
-                  <div className="bg-icon">
+                  <div className="bg-icon" onClick={() => navigate(`/buy/${item.productId}`, { state: {id: item.productId}})}>
                     <img className="icon" src={iconCart} alt="" />
                   </div>
                 </div>

@@ -1,0 +1,74 @@
+.myHistoryContainer {
+  padding-top: 85px;
+  width: 80%;
+  margin: 0 auto;
+
+  .tb-header {
+    background-color: rgb(19, 107, 134);
+    max-width: 1228px;
+    min-width: 1000px;
+    padding: 10px 5px 0px 5px;
+    border: 1px solid gray;
+
+  }
+
+  .tbh-img {
+    max-width: 128px;
+    min-width: 100px;
+  }
+
+  .tbh-name {
+    // max-width: 400px;
+    // min-width: 300px;
+    width: 200px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  .tbh-brand {
+    max-width: 230px;
+    min-width: 200px;
+  }
+
+  .tbh-price {
+    max-width: 230px;
+    min-width: 200px;
+  }
+
+  .tbh-actions {
+    max-width: 240px;
+    min-width: 200px;
+  }
+
+  .tb-body {
+    background-color: #fff;
+    max-width: 1228px;
+    min-width: 1000px;
+    padding: 10px 5px 0px 5px;
+    border: 1px solid gray;
+  }
+
+  .tbb-img {
+    max-width: 128px;
+    min-width: 100px;
+    width: 50px;
+    height: 60px;
+  }
+
+  .bg-icon {
+    margin: 0 10px;
+
+    .icon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .icon:hover {
+      transform: scale(1.2);
+      transition: 600ms;
+    }
+  }
+
+}
