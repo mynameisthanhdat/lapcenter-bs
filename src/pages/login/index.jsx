@@ -36,6 +36,7 @@ export default function Login() {
       localStorage.setItem('customerName', response.data.userName)
       localStorage.setItem('accessToken', response.data.token)
       localStorage.setItem('userId', response.data.userId)
+      localStorage.setItem('isAdmin', response.data?.isAdmin)
       navigate('/');
     })
     .catch(function (error) {
